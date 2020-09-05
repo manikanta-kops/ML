@@ -19,12 +19,23 @@ grad = zeros(size(theta));
 %
 % Note: grad should have the same dimensions as theta
 %
+z = X*theta;
+hypothesis = sigmoid(z);
 
 
+for i=1:m
+    J = J + ((y(i)*log(hypothesis(i))) + ((1 - y(i)) * log(1 - hypothesis(i))));
+end;
+J = (-1/m) * J;
 
 
-
-
+for j=1:size(X,2)
+    currentGrad = 0;
+    for i=1:m
+        currentGrad = currentGrad + ((hypothesis(i) - y(i)) * X(i,j));
+    end;
+    grad(j) = currentGrad/m;
+end;
 
 
 % =============================================================
